@@ -1,6 +1,6 @@
 # Title: Django Restaurant Management System
 ## Name: Everest Cuisine
-## Video Demo:  [youtube video](https://youtu.be/NY7KezwHg6w?si=U563QnuecfbeZ9Vq)
+## Video Demo:  [[youtube video](https://youtu.be/NY7KezwHg6w?si=U563QnuecfbeZ9Vq](https://youtu.be/76OQgVX9qqw?si=KqGyDLAI95GqhdGH))
 
 ### Description
 - Full-stack Python project using **Django** as the framework and **PostgreSQL** as the DBMS.  
