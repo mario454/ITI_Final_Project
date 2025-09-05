@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}
+Update Menu Item
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/insert.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="insert-form">
+    {% csrf_token %}
+    <h2>Update Menu Item</h2>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="itname" required value="{{item.name}}">
+    </div>
+
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="itprice" step="0.001" required value="{{item.price}}">
+    </div>
+
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="itdescription">{{item.description}}</textarea>
+    </div>
+    <div>
+        <label for="status" id="itstatus">Status:</label>
+        <input type="radio" name="itstatus" id="available" value="Available" {% if item.status %}checked{% endif %}>
+        <label for="available" class="radio-label">Available</label>
+        <br>
+        <input type="radio" name="itstatus" id="unavailable" value="Unavailable" {% if not item.status %}checked{% endif %}>
+        <label for="unavailable" class="radio-label">Unavailable</label>
+    </div>
+
+    <div id="image-div">
+        {% if block %}
+        <div id="current-image">
+            <label for="">Current Image:</label>
+            <img src="{{ item.image.url }}" width="100px">
+        </div>
+        {% endif %}
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="itimage" accept="image/*" hidden onchange="showFileName(this)">
+        <label for="image" id="image-name">Choose Image</label>
+    </div>
+    <button type="submit">Update Item</button>
+</form>
+{% endblock %}

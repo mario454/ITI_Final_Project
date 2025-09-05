@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}
+View Customer Orders
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+<style>
+    
+#update-order-status-form input[type="submit"] {
+    cursor: pointer;
+    position: static;
+    height: 40px;
+    width: 100px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+</style>
+{% endblock %}
+
+{% load custom_filters %}
+
+{% block content %}
+<h1 id="items-in-order">Orders for {{customer.name}} - {{customer.phone}}</h1>
+{% if not error and not ordersnitems %} <h4 class="error-order"> This Customer doesn't have any orders.</h4> {% endif %}
+
+<ul>
+    {% for order in orders %}
+    <li type="none">
+        <h3>Order number: {{ order.order }} </h3>
+        <h4>Created Time: {{ order.CreatedTime }} </h4>
+
+        <div id="order-status-update">
+            <span>Status: </span>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'updateorder_st' %}"
+                id="update-order-status-form">
+                {% csrf_token %}
+                <select id="orderst" name="orstatus">
+                    {% for st in STATUS_CHOICES %}
+                    {% if st.0 == order.status %}
+                    <option value="{{st.0}}" selected>{{st.1}}</option>
+                    {% else %}
+                    <option value="{{st.0}}">{{st.1}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <input hidden name="orderid_st" value="{{ order.order }}">
+                <input hidden name="customerid_st" value="{{ customer.id }}">
+                <input type="submit" value="Change">
+            </form>
+        </div>
+
+
+        {% if ordersnitems|keyvalue:order.order %}
+        <h4>Order Total Price: $ {{ ordertotalprice|keyvalue:order.order }}</h4>
+        <table id="order-items-table">
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Item Total Price</th>
+            </tr>
+            {% for orderitem in ordersnitems|keyvalue:order.order %}
+            <tr>
+                <td> {{ orderitem.item.name }} </td>
+                <td> {{ orderitem.quantity }} </td>
+                <td> $ {{ orderitem.total_price_item }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h4>Order Total Price: $ 0</h4>
+        <h4 class="error-order">This order doesn't have any items.</h4>
+        {% endif %}
+        <hr>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

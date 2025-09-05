@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+Update Customer
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/insert.css' %}">
+{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="insert-form">
+    {% csrf_token %}
+    <h2>Update Customer</h2>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="custname" required value="{{ customer.name }}">
+    </div>
+
+    <div>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="custphone" pattern="^(\+20|0)(10|11|12|15)[0-9]{8}$" required 
+        placeholder="e.g. 01012345678 or +201012345678" value="{{ customer.phone }}"
+        title="Phone number must start with 010, 011, 012, or 015 (with or without +20).">
+        <p class="error" style="display: none;">Invalid phone number format.</p>
+    </div>
+
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="custemail" placeholder="username@gmail.com" value="{% if customer.email %}{{ customer.email }}{% endif %}">
+    </div>
+    {% if error %}
+        <h5 class="error">{{error}}</h5>
+    {% endif %}
+    <div>
+        <label for="status" id="custstatus">Status:</label>
+        <input type="radio" name="custstatus" id="available" value="Available" {% if customer.status %}checked{% endif %}>
+        <label for="available" class="radio-label">Available</label>
+        <br>
+        <input type="radio" name="custstatus" id="unavailable" value="Unavailable" {% if not customer.status %}checked{% endif %}>
+        <label for="unavailable" class="radio-label">Unavailable</label>
+    </div>
+    <button type="submit">Update Customer</button>
+</form>
+{% endblock %}

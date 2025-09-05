@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %}
+Create Order
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+<link rel="stylesheet" href="{% static 'css/create.css' %}">
+<link rel="stylesheet" href="{% static 'css/insert.css' %}">
+
+<style>
+    main {
+        background-image: none;
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    #background-img {
+        background-image: url('../../../static/imgs/meals.jpg');
+    }
+
+    .insert-form h2 {
+        color: black;
+        text-shadow: 2px 2px 2px rgba(194, 115, 62, 0.685);
+    }
+
+    .insert-form label {
+        color: black;
+        text-shadow: 2px 2px 2px rgba(194, 115, 62, 0.685);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="background-img"></div>
+{% if step == '1' %}
+<div id="popup">
+    <form method="POST" enctype="multipart/form-data" id="create-order" class="insert-form">
+        {% csrf_token %}
+        <a href="{% url 'home'%}" id="cancel-create">X</a>
+        <h2>Create Order</h2>
+        <div>
+            <label for="orcustname">Customer Name:</label>
+            <input type="text" id="orcustname" name="orcustname" required value="{{ name_error }}">
+        </div>
+
+        <div>
+            <label for="orcustphone">Customer Phone:</label>
+            <input type="tel" id="orcustphone" name="orcustphone" pattern="^(\+20|0)(10|11|12|15)[0-9]{8}$" required
+                title="Phone number must start with 010, 011, 012, or 015 (with or without +20)."
+                value="{{ phone_error }}">
+        </div>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        <input type="hidden" id="step_step" name="step" value="1">
+        {% else %}
+        <input type="hidden" id="step" name="step" value="2">
+        {% endif %}
+        <button type="submit">Create Order</button>
+    </form>
+</div>
+{% endif %}
+
+{% if step == '3' %}
+<fieldset>
+    <legend>Customer</legend>
+    <div>
+        <label for="name">Customer Name:</label>
+        <input type="text" value="{{order.customer.name}}" disabled>
+    </div>
+    <div>
+        <label for="orcustphone">Customer Phone:</label>
+        <input type="text" value="{{order.customer.phone}}" disabled>
+    </div>
+</fieldset>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data" id="search-item" action="{% url 'searchitemtoadd' %}">
+    {% csrf_token %}
+    <input type="text" placeholder="Search Items..." autocomplete="on" name="search_item" value="{{name}}">
+    <input type="hidden" id="step" name="step" value="3">
+    <button type="submit" title="Search"><img src="{% static 'imgs/search.png' %}" alt="Search items"></button>
+</form>
+<a href="{% url 'displayorder' %}" id="view-order">View Order</a>
+
+<h1 id="all-items">All Items</h1>
+
+
+<ul class="list-table">
+    <li class="table-header">
+        <div class="col col-1">Item</div>
+        <div class="col col-2">Price</div>
+        <div class="col col-3">Description</div>
+        <div class="col col-4">Image</div>
+        <div class="col col-5">Status</div>
+        <div class="col col-6">Quantity</div>
+        <div class="col col-7">Add to Order</div>
+    </li>
+    {% for item in items %}
+    <li class="table-row">
+        <div class="col col-1">{{ item.name }}</div>
+        <div class="col col-2">$ {{ item.price }}</div>
+        <div class="col col-3">
+            {% if item.description %} {{ item.description }} {% else %} No Description Provided{% endif %}
+        </div>
+        <div class="col col-4">
+            {% if item.image %}
+            <img src="{{ item.image.url }}" width="100px" height="100px">
+            {% else %}
+            No Image Available
+            {% endif %}
+        </div>
+        <div class="col col-5 status-list">
+            {% if item.status %}Available{% else %}Unavailable{% endif %}
+        </div>
+        <div class="col col-6">
+            <div id="quantity-container">
+                <!-- Make buttons for quantity increase and decrease -->
+                <input type="button" id="qdecrement" class="qdecrement" value="-">
+                <span id="orquantity" class="orquantity">1</span>
+                <input type="button" id="qincrement" class="qincrement" value="+">
+
+            </div>
+        </div>
+        <div class="col col-7">
+            <form method="POST" enctype="multipart/form-data" id="add-oritems-form" action="{% url 'createorder'%}">
+                {% csrf_token %}
+                <input hidden name="oritemid" value="{{ item.item }}">
+                <input hidden name="orquantity" id="orquantity-result" class="orquantity-result" value="1">
+                <input type="submit" id="add-to-order" value="Add">
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

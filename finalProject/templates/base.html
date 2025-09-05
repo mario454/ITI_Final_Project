@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Everest Cuisine {% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="/static/imgs/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+    {% endblock %}
+    {% comment %} AOS CSS Library {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hover.css/css/hover-min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <input type="text" id="MY_RESTAURANT" style="opacity: 0; position: absolute;">
+        <table id="header-table">
+            <tr>
+                <td>
+                    <img src="{% static 'imgs/logo.png' %}" alt="logo" width="70px" height="70px">
+                </td>
+                <td>
+                    <h1 id="MY_RES">Everest Cuisine</h1>
+                </td>
+                <td>
+                    <nav>
+                        <a href="{% url 'home' %}" class="hvr-underline-from-center">🏠︎ Home</a>
+                        <a href="{% url 'displayallitems' %}" class="hvr-underline-from-center">🍽 Menu</a>
+                        <a href="{% url 'createorder' %}" class="hvr-underline-from-center">📝 Order</a>
+                        <a href="{% url 'allcustomers' %}" class="hvr-underline-from-center">👥 Customer</a>
+                        <a href="{% url 'insertcust' %}" class="hvr-underline-from-center">➕Add Customer</a>
+                    </nav>
+                </td>
+            </tr>
+        </table>
+    </header>
+    <main>
+        {% block content %}
+        <h1 id="mostitems">Most Ordered Items</h1>
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                {% for item in MostOrdered %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="../media/{{item.item__image}}"class="d-block" style="width:90%; height:450px;" title="{{ item.item__name }} | $ {{item.item__price}}">
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+
+        <div id="info1" data-aos="fade-up">
+            <span>
+                <em>S</em>tep into our modern restaurant, where style and comfort come together to create the perfect
+                dining
+                experience. <em>W</em>ith elegant wooden tables, thoughtfully arranged seating, and soft ambient
+                lighting, every
+                corner is designed to make you feel welcome. <em>T</em>he spacious layout allows for both intimate meals
+                and
+                lively gatherings, while the open kitchen concept brings the art of cooking right before your eyes.
+                <em>W</em>hether you’re here for a casual lunch, a special celebration, or a memorable evening with
+                friends and
+                family, our restaurant offers a warm, inviting atmosphere where every meal is a delight and every visit
+                becomes a cherished memory.
+            </span>
+            <img src="{% static 'imgs/homepage1.jpg' %}" alt="background" width="450px">
+        </div>
+
+        <div id="info2" data-aos="fade-up">
+            <img src="{% static 'imgs/homepage2.jpg' %}" alt="services" width="450px">
+            <span>
+                <em>S</em>tep into a lively atmosphere where great food meets great company. <em>O</em>ur attentive
+                waiter brings a smile
+                along with each dish, ensuring every guest feels taken care of. <em>S</em>urrounded by cheerful friends
+                enjoying
+                their time together, this scene captures the essence of our restaurant — a place filled with laughter,
+                shared moments, and unforgettable dining experiences. <em>F</em>rom casual gatherings to special
+                celebrations,
+                every visit is designed to delight the senses and create memories that linger long after the last bite.
+            </span>
+        </div>
+        <div id="info1" data-aos="fade-up">
+            <span>
+                <em>A</em> feast filled with all-time favorites: cheesy Italian pizza, creamy pasta, juicy burgers,
+                golden fries,
+                crispy appetizers, and sandwiches made with love.
+
+                <em>O</em>ur restaurant isn’t just a place to eat – it’s where friends laugh together, families gather
+                around the
+                table, and memories are created over a warm dish fresh from the oven.
+
+                <em>E</em>very plate is crafted with care, using fresh ingredients chosen to bring you that “this is
+                exactly what
+                I was craving” feeling.
+
+                <em>W</em>hether you’re here for a classic pizza, indulging in pasta perfection, or grabbing a quick
+                flavorful
+                sandwich – you’ll always find something that satisfies both your hunger and your heart.
+            </span>
+            <img src="{% static 'imgs/meals.jpg' %}" alt="meals" width="400px" height="350px">
+        </div>
+
+        {% endblock %}
+    </main>
+
+    <footer class="footer_normal">
+        <div id="footer-top">
+            <img src="{% static 'imgs/logo.png' %}" alt="logo" width="70px" height="70px">
+            <h1 id="MY_RES">Everest Cuisine</h1>
+        </div>
+        <div id="footer-tables">
+            <table class="footer-table">
+                <tr>
+                    <th> Contact Info </th>
+                </tr>
+                <tr>
+                    <td>
+                        Address:
+                        <a href="https://www.google.com/maps/place" target="_blank" class="hvr-underline-from-center"
+                            style="margin-left: 5px;">
+                            123 Nile Street, Zamalek, Cairo, Egypt</a>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>Phone: <a href="tel:+201281196150" class="hvr-underline-from-center"
+                            style="margin-left: 5px;">+20 XXX XXX XXXX</a></td>
+                </tr>
+                <tr>
+                    <td>Opening Hours: Mon–Sun, 10:00 AM – 12:00 PM</td>
+                </tr>
+            </table>
+            <table class="footer-table">
+                <tr>
+                    <th> Quick Links </th>
+                </tr>
+                <tr>
+                    <td><a href="{% url 'displayallitems' %}" class="hvr-underline-from-center">Menu</a> </td>
+                </tr>
+                <tr>
+                    <td><a href="{% url 'displayorder' %}" class="hvr-underline-from-center">Order</a> </td>
+                </tr>
+                <tr>
+                    <td> <a href="{% url 'allcustomers' %}" class="hvr-underline-from-center">Customer</a> </td>
+                </tr>
+                <tr>
+                    <td> <a href="https://github.com/mario454" class="hvr-underline-from-center">About Us</a> </td>
+                </tr>
+                <tr>
+                    <td> <a href="mailto:marioatef517@gmail.com" class="hvr-underline-from-center">Contact</a> </td>
+                </tr>
+            </table>
+            <table class="footer-table">
+                <th>Social Media</th>
+                <tr>
+                    <td>
+                        <a href="https://www.facebook.com"><img src="{% static 'imgs/facebook.png' %}"
+                                alt="Facebook" width="40px" height="40px"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://www.instagram.com"><img src="{% static 'imgs/instagram.png' %}"
+                                alt="Instagram" width="40px" height="40px"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="https://wa.me/+20XXXXXXXXXX"><img src="{% static 'imgs/whatsapp.png' %}" alt="WhatsApp"
+                                width="40px" height="40px"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="footer-bottom">
+            <a href="#MY_RESTAURANT" id="gototop"><img src="{% static 'imgs/go-to-top.png' %}" alt="Back to Top"></a>
+            <h3 id="copyright"> Copyrights &#169; My restaurant are reserved</h3>
+        </div>
+    </footer>
+    {% comment %} Use AOS library to fadeout animation {% endcomment %}
+    <script src="{% static 'js/base.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 900,  // 900ms
+            once: true // whether animation should happen only once - while scrolling down
+        });
+    </script>
+
+</body>
+
+</html>

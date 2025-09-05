@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+Customers
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+<style>
+    main {
+        padding-bottom: 50px;
+    }
+
+    #background-img {
+        background-image: url('../../../static/imgs/homepage2.jpg');
+        opacity: 0.2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<nav id="page-nav">
+    <a href="{% url 'allcustomers' %}" id="nav-display"> Display Customers</a>
+    <a href="{% url 'insertcust'%}" id="nav-insert">Insert Customer </a>
+</nav>
+<div id="background-img"></div>
+<h1 id="all-customers">All Customers</h1>
+<table id="customer-table">
+    <thead>
+        <tr class="tbl-header">
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Orders Count</th>
+            <th>Status</th>
+            <th>Control</th>
+        </tr>
+    </thead>
+    {% for customer, numorders in customers %}
+    <tr class="tbl-content">
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{% if customer.email %} {{ customer.email }} {% else %} No E-mail Provided{% endif %}</td>
+        <td>
+            <span id="order-count"> {{ numorders }} </span>
+            <a href="{% url 'viewcustorders' customer.id %}">View</a>
+
+        </td>
+        <td class="status-list">
+            {% if customer.status %}Active{% else %}Inactive{% endif %}
+        </td>
+        <td class="action">
+            <a href="{% url 'updatecust' customer.id %}">Update</a>
+            <a href="{% url 'deletecust' customer.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

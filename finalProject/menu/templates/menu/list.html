@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+Menu
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+<style>
+    main {
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="background-img"></div>
+<nav id="page-nav">
+    <a href="{% url 'displayallitems' %}" id="nav-display"> Display Items</a>
+    <a href="{% url 'insertitem'%}" id="nav-insert">Insert Item </a>
+</nav>
+<form method="POST" enctype="multipart/form-data" id="search-item" action="{% url 'searchitem' %}">
+    {% csrf_token %}
+    <input type="text" placeholder="Search Items..." autocomplete="on" name="search_item" value="{{name}}">
+    <button type="submit" title="Search">Search</button>
+</form>
+<h1 id="all-items">All Items</h1>
+
+<ul class="list-table">
+    <li class="table-header">
+        <div class="col col-1">No.</div>
+        <div class="col col-2">Item</div>
+        <div class="col col-3">Price</div>
+        <div class="col col-4">Description</div>
+        <div class="col col-5">Image</div>
+        <div class="col col-6">Status</div>
+        <div class="col col-7">Control</div>
+    </li>
+    {% for item in items %}
+    <li class="table-row">
+        <div class="col col-1">{{ item.item }}</div>
+        <div class="col col-2">{{ item.name }}</div>
+        <div class="col col-3">$ {{ item.price }}</div>
+        <div class="col col-4">
+            {% if item.description %} {{ item.description }} {% else %} No Description Provided {% endif %}
+        </div>
+        <div class="col col-5">
+            {% if item.image %}
+            <img src="{{ item.image.url }}" width="100px" height="100px">
+            {% else %}
+            No Image Available
+            {% endif %}
+        </div>
+        <div class="col col-6 status-list"> {% if item.status %}Available{% else %}Unavailable{% endif %} </div>
+        <div class="col col-7">
+            <div class="action">
+                <a href="{% url 'updateitem' item.item %}">Update</a>
+                <a href="{% url 'deleteitem' item.item %}">Delete</a>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

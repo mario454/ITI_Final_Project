@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}
+Order
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+<link rel="stylesheet" href="{% static 'css/create.css' %}">
+{% endblock %}
+
+{% block content %}
+<fieldset>
+    <legend>Customer</legend>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" value="{{order.customer.name}}" disabled>
+    </div>
+    <div>
+        <label for="orcustphone">Phone:</label>
+        <input type="text" value="{{order.customer.phone}}" disabled>
+        </div>
+        {% if order.customer.email %}
+        <div>
+            <label for="orcustemail">E-mail:</label>
+            <input type="email" value="{{order.customer.email}}" disabled>
+        </div>
+        {% endif %}
+</fieldset>
+<h1 id="all-items-order">All Items in order for {{order.customer.name}}</h1>
+<h2 id="order-total-price">Total Price for Order: <span>$ {% if totalprice %} {{totalprice}} {% else %} 0 {% endif %}</span> </h2>
+
+<div id="order-status-update">
+    <span>Status: </span>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'updateorder_finish' %}"
+        id="update-order-status-form">
+        {% csrf_token %}
+        <select id="orderst" name="orstatus">
+            {% for st in STATUS_CHOICES %}
+            {% if st.0 == order.status %}
+            <option value="{{st.0}}" selected>{{st.1}}</option>
+            {% else %}
+            <option value="{{st.0}}">{{st.1}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <input hidden name="orderid_finish" value="{{ order.order }}">
+        <input type="submit" value="Done">
+    </form>
+</div>
+
+<table id="order-items-table">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Control</th>
+    </tr>
+
+    {% for orderitem in orderitems %}
+    <tr>
+        <td>{{ orderitem.item.name }}</td>
+        <td>
+            <div id="quantity-container">
+                <!-- Make buttons for quantity increase and decrease -->
+                <input type="button" id="qdecrement" class="qdecrement"value="-">
+                <p id="orquantity" class="orquantity">{{ orderitem.quantity }}</p>
+                <input type="button" id="qincrement" class="qincrement" value="+">
+            </div>
+        </td>
+        <td>
+            <p id="item-price">{{ orderitem.item.price }}</p>
+            <p id="item-quantity-price">Total Price = {{ orderitem.total_price_item }}</p>
+        </td>
+        <td class="action">
+            <form method="POST" enctype="multipart/form-data" id="add-oritems-form" action="{% url 'updateorder' %}">
+                {% csrf_token %}
+                <input hidden name="oritemid" value="{{ orderitem.item.item }}">
+                <input hidden name="orderid" value="{{ order.order }}">
+                <input hidden name="orquantity" id="orquantity-result" class="orquantity-result" value="{{ orderitem.quantity }}">
+
+                <input type="submit" id="update-order" value="Update">
+            </form>
+            <a href="{% url 'deleteitemorder' orderitem.item.item %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

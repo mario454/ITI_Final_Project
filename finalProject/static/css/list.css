@@ -1,0 +1,495 @@
+main {
+    margin: 0;
+}
+
+footer {
+    margin-top: 0;
+}
+
+#background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: url('../imgs/meals.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+}
+
+#page-nav {
+    display: flex;
+    justify-content: start;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #dbbf72, #e27705);
+    border-bottom: 1px solid #eee;
+}
+
+#page-nav a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    color: #1a1919;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 20px;
+    border-radius: 3px;
+}
+
+#page-nav a:hover {
+    background-color: #1a19192c;
+}
+
+#search-item {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    align-items: center;
+    margin: 25px;
+}
+
+#all-items,
+#all-customers,
+#items-in-order {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 40px;
+    color: #2c2c2c;
+    text-align: center;
+    margin: 40px 0 30px 0;
+}
+
+#search-item input {
+    width: 300px;
+    height: 4%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: -1px 6px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    margin-right: 5px;
+    padding: 10px;
+}
+
+#search-item input:focus {
+    outline: none;
+    border: 1px solid #ff9900;
+    box-shadow: 0 0 5px rgba(255, 153, 0, 0.7);
+}
+
+
+#search-item button {
+    display: flex;
+    align-items: center;
+}
+
+#search-item button {
+    height: 40px;
+    background: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: -1px 6px 5px rgba(0, 0, 0, 0.2);
+}
+
+#search-item button:hover {
+    background: none;
+    border: 1px solid orange;
+    color: darkorange;
+}
+
+
+/* To act Like table by using list in list.html in menu app*/
+.list-table {
+    width: 90%;
+    align-self: center;
+    justify-self: center;
+    margin-right: 50px;
+
+    li {
+        border-radius: 3px;
+        padding: 25px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-header {
+        background-color: #95A5A6;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .table-row {
+        background-color: #ffffff;
+        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+        justify-items: center;
+        align-items: center;
+    }
+
+    .table-row:hover {
+        background-color: #f5f0f0;
+    }
+
+    .col {
+        display: flex;
+        justify-content: center;
+    }
+
+    .col-1 {
+        flex-basis: 8%;
+    }
+
+    .col-2 {
+        flex-basis: 18%;
+    }
+
+    .col-3 {
+        flex-basis: 10%;
+    }
+
+    .col-4 {
+        flex-basis: 22%;
+    }
+
+    .col-5 {
+        flex-basis: 18%;
+
+        img {
+            border-radius: 5px;
+            box-shadow: 1px 6px 5px 0px rgba(0, 0, 0, 0.1)
+        }
+    }
+
+    .col-6 {
+        flex-basis: 10%;
+    }
+
+    .col-7 {
+        flex-basis: 14%;
+    }
+}
+
+.action {
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+}
+
+div .action {
+    align-items: center;
+}
+
+.action a {
+    display: inline-block;
+    color: #0d6efd;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.action a:hover {
+    color: #0846a1;
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+.action>a {
+    padding-right: 10px;
+}
+
+/* Cuatomer app -> list.html */
+#customer-table {
+    width: 90%;
+    align-self: center;
+    justify-self: center;
+    transform: translate(-2px, -2px);
+    text-align: center;
+    border-collapse: collapse;
+    border-radius: 5px;
+    box-shadow: 3px 1px 13px 16px rgba(0, 0, 0, 0.1);
+    font-size: normal;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+/* Hide vertical borders */
+#customer-table,
+#customer-table th,
+#customer-table td {
+    border: 2px solid rgba(197, 111, 41, 0.637);
+    border-left: none;
+    border-right: none;
+}
+
+#customer-table tr {
+    transition: all 0.2s ease;
+}
+
+#customer-table tr th:first-child,
+#customer-table tr td:first-child {
+    border-left: 2px solid rgba(197, 111, 41, 0.637);
+}
+
+#customer-table tr th:last-child,
+#customer-table tr td:last-child {
+    border-right: 2px solid rgba(197, 111, 41, 0.637);
+}
+
+
+#customer-table th,
+#customer-table td {
+    padding: 12px 15px;
+}
+
+#customer-table th {
+    background: linear-gradient(180deg, #ec7c04, #b49c5b);
+    color: #000000;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+}
+
+#customer-table td {
+    color: #220404;
+}
+
+#customer-table tr:nth-child(odd) {
+    background-color: #d4d3d36c;
+}
+
+#customer-table tr:nth-child(even) {
+    background-color: #79767654;
+}
+
+#customer-table tbody tr:hover {
+    background: linear-gradient(180deg, #ec7c04c0, #b49c5bd0);
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#customer-table td:nth-child(4) {
+    #order-count {
+        margin-right: 10px;
+    }
+
+    a {
+        color: #0d6efd;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    a:hover {
+        color: #0846a1;
+        text-decoration: underline;
+        transform: scale(1.1);
+    }
+}
+
+
+/* list.html in order app*/
+#all-items-order {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 35px;
+    color: #2c2c2c;
+    padding-left: 10px;
+}
+
+#order-total-price {
+    padding-left: 10px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 25px;
+    color: #2c2c2c;
+
+
+    span {
+        color: green;
+        border-radius: 5px;
+        border: 1px solid green;
+        padding: 2px;
+        font-weight: bold;
+    }
+
+    span:hover {
+        color: white;
+        background-color: green;
+    }
+}
+
+
+#order-status-update {
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 20px;
+    color: #2c2c2c;
+    margin-top: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+}
+
+#update-order-status-form select {
+    height: 25px;
+    text-align: center;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 15px;
+}
+
+#update-order-status-form select:focus {
+    outline: none;
+    background-color: #e9e7e7;
+}
+
+#update-order-status-form input[type="submit"] {
+    cursor: pointer;
+    position: absolute;
+    left: calc(100% - 150px);
+    height: 50px;
+    width: 100px;
+    padding: 10px;
+    font-size: medium;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+#update-order-status-form input[type="submit"]:hover {
+    background-color: #45a049;
+    box-shadow: 1px 1px 5px black;
+    transform: translate(-2px, -2px);
+}
+
+/* Order app -> list.html */
+
+#order-items-table {
+    margin: 50px 0 20px 0;
+    width: 90%;
+    align-self: center;
+    justify-self: center;
+    transform: translate(-2px, -2px);
+    border-collapse: collapse;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    box-shadow: 11px 10px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+#order-items-table tr {
+    text-align: center;
+}
+
+#order-items-table th {
+    background: #4CAF50;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#order-items-table th,
+#order-items-table td {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+#order-items-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+#order-items-table tr:hover {
+    background: #f1f7f1;
+}
+
+#order-items-table td input[type="submit"],
+#order-items-table td a {
+    margin: 0 4px;
+}
+
+#order-items-table td form {
+    display: inline;
+}
+
+#order-items-table td input[type="submit"] {
+    background-color: rgba(255, 255, 255, 0);
+    color: #2196F3;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+
+#order-items-table td a {
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+#order-items-table td a:hover,
+#order-items-table td input[type="submit"]:hover {
+    color: #1c80d1;
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+/* Highlight total price */
+#order-items-table td:nth-child(3) {
+    font-weight: bold;
+    color: #333;
+}
+
+#order-items-table td:nth-child(2) {
+    justify-items: center;
+}
+
+
+
+/* View.html in customer app */
+li h3 {
+    color: #777;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+li h4 {
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 20px;
+}
+
+
+
+.error-order {
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-top: 10px;
+}
+
+hr {
+    width: 90%;
+    transform: translateX(-2px, -2px);
+    border: 1px solid #ccc;
+    margin: 20px 0;
+}

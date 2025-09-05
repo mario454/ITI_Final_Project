@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+Insert Menu Item
+{% endblock %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/insert.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav id="page-nav">
+    <a href="{% url 'displayallitems' %}" id="nav-display"> Display Items</a>
+    <a href="{% url 'insertitem'%}" id="nav-insert">Insert Item </a>
+</nav>
+<form method="POST" enctype="multipart/form-data" class="insert-form">
+    {% csrf_token %}
+    <h2>Insert Menu Item</h2>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="itname" required autofocus>
+    </div>
+
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="itprice" step="0.001" required>
+    </div>
+
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="itdescription"></textarea>
+    </div>
+
+    <div id="image-div">
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="itimage" accept="image/*" hidden onchange="showFileName(this)">
+        <label for="image" id="image-name">Choose Image</label>
+    </div>
+    <button type="submit">Insert Item</button>
+</form>
+{% endblock %}
